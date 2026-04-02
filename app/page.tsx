@@ -1,65 +1,100 @@
-import Image from "next/image";
+'use client';
 
-export default function Home() {
+import { useState, useCallback } from 'react';
+import Loader from '@/components/Loader';
+import Nav from '@/components/Nav';
+import Hero from '@/components/Hero';
+import FeaturedMenu from '@/components/FeaturedMenu';
+import TickerServer from '@/components/TickerServer';
+import QuarterSection from '@/components/QuarterSection';
+import TapsBoard from '@/components/TapsBoard';
+import ReserveSection from '@/components/ReserveSection';
+import Footer from '@/components/Footer';
+import ScrollStopwatch from '@/components/ScrollStopwatch';
+import { getCloudinaryUrl, QUARTER_IMAGES, IMAGE_DIMENSIONS } from '@/config/images';
+
+export default function HomePage() {
+  const [loaded, setLoaded] = useState(false);
+
+  const handleLoaderComplete = useCallback(() => {
+    setLoaded(true);
+  }, []);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <>
+      <Loader onComplete={handleLoaderComplete} />
+
+      <div
+        style={{
+          opacity: loaded ? 1 : 0,
+          transition: 'opacity 0.6s ease 0.2s',
+        }}
+      >
+        <Nav />
+
+        <main>
+          {/* HERO */}
+          <Hero />
+
+          {/* FEATURED MENU */}
+          <FeaturedMenu />
+
+          {/* TICKER TAPE */}
+          <TickerServer />
+
+          {/* 1ST QUARTER: THE ATMOSPHERE */}
+          <QuarterSection
+            quarter="1st Quarter"
+            title="Where Every"
+            subtitle="Game Comes Alive"
+            body="20 HD TVs. Dedicated sound zones. Stadium lighting that puts you right in the action. Whether it's Sunday football or a midweek Premier League match, GameTime is your front-row seat."
+            imgSrc={getCloudinaryUrl(QUARTER_IMAGES.atmosphere, { ...IMAGE_DIMENSIONS.quarter, quality: 'high' })}
+            stat={{ value: '20', label: 'TVs' }}
+          />
+
+          <div className="section-sep" />
+
+          {/* 2ND QUARTER: THE FOOD */}
+          <QuarterSection
+            quarter="2nd Quarter"
+            title="Food That"
+            subtitle="Hits Different"
+            body="Scratch kitchen. Bold flavors. From the legendary Blitz Burger to our award-winning craft cocktails — every bite and sip is built for the moment."
+            imgSrc={getCloudinaryUrl(QUARTER_IMAGES.food, { ...IMAGE_DIMENSIONS.quarter, quality: 'high' })}
+            reverse
+            stat={{ value: '4.9★', label: 'Guest Rating' }}
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+            <a href="/menu" className="btn-crimson" style={{ fontSize: '0.8rem' }}>
+              Explore the Full Menu
+            </a>
+          </QuarterSection>
+
+          <div className="section-sep" />
+
+          {/* TAPS & GAMES BOARD */}
+          <TapsBoard />
+
+          <div className="section-sep" />
+
+          {/* 3RD QUARTER: THE VIBE */}
+          <QuarterSection
+            quarter="3rd Quarter"
+            title="Your Scene,"
+            subtitle="Your Rules"
+            body="From raucous game-day crowds to intimate late-night cocktail sessions — GameTime shifts with you. Toggle between Gameday Mode and After Hours Mode and watch the entire experience transform."
+            imgSrc={getCloudinaryUrl(QUARTER_IMAGES.vibes, { ...IMAGE_DIMENSIONS.quarter, quality: 'high' })}
+            stat={{ value: '7', label: 'Distinct Zones' }}
+          />
+
+          <div className="section-sep" />
+
+          {/* RESERVE */}
+          <ReserveSection />
+        </main>
+
+        <Footer />
+        <ScrollStopwatch />
+      </div>
+    </>
   );
 }
