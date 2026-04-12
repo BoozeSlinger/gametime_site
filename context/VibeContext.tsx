@@ -1,10 +1,10 @@
 'use client';
-
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
 interface VibeContextType {
   isAfterHours: boolean;
   setIsAfterHours: (value: boolean) => void;
+  toggleVibe: () => void;
 }
 
 export const VibeContext = createContext<VibeContextType | undefined>(undefined);
@@ -25,16 +25,20 @@ export function VibeProvider({ children }: { children: ReactNode }) {
     return () => clearInterval(interval);
   }, []);
 
+  const toggleVibe = () => {
+    setIsAfterHours((prev) => !prev);
+  };
+
   return (
-    <VibeContext.Provider value={{ isAfterHours, setIsAfterHours }}>
+    <VibeContext.Provider value={{ isAfterHours, setIsAfterHours, toggleVibe }}>
       {children}
     </VibeContext.Provider>
   );
 }
 
-export function useVibe() {
+export function useVibe(): VibeContextType {
   const context = useContext(VibeContext);
-  if (context === undefined) {
+  if (!context) {
     throw new Error('useVibe must be used within a VibeProvider');
   }
   return context;
