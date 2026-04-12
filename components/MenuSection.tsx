@@ -1,5 +1,4 @@
 'use client';
-
 import { useState } from 'react';
 import Image from 'next/image';
 import { useVibe } from '@/context/VibeContext';
@@ -22,22 +21,22 @@ interface MenuCategory {
 }
 
 const getMenuImages = () => ({
-  wings: getCloudinaryUrl(MENU_IMAGES.starters.wings, { ...IMAGE_DIMENSIONS.menu, quality: 'medium' }),
-  nachos: getCloudinaryUrl(MENU_IMAGES.starters.nachos, { ...IMAGE_DIMENSIONS.menu, quality: 'medium' }),
-  calamari: getCloudinaryUrl(MENU_IMAGES.starters.calamari, { ...IMAGE_DIMENSIONS.menu, quality: 'medium' }),
-  cornDip: getCloudinaryUrl(MENU_IMAGES.starters.cornDip, { ...IMAGE_DIMENSIONS.menu, quality: 'medium' }),
-  blitzBurger: getCloudinaryUrl(MENU_IMAGES.burgers.blitz, { ...IMAGE_DIMENSIONS.menu, quality: 'medium' }),
-  crimsonCowboy: getCloudinaryUrl(MENU_IMAGES.burgers.crimsonCowboy, { ...IMAGE_DIMENSIONS.menu, quality: 'medium' }),
-  blackBlue: getCloudinaryUrl(MENU_IMAGES.burgers.blackBlue, { ...IMAGE_DIMENSIONS.menu, quality: 'medium' }),
-  mushroomRanch: getCloudinaryUrl(MENU_IMAGES.burgers.mushroomRanch, { ...IMAGE_DIMENSIONS.menu, quality: 'medium' }),
-  oldFashioned: getCloudinaryUrl(MENU_IMAGES.cocktails.oldFashioned, { ...IMAGE_DIMENSIONS.menu, quality: 'medium' }),
-  crimsonMule: getCloudinaryUrl(MENU_IMAGES.cocktails.crimsonMule, { ...IMAGE_DIMENSIONS.menu, quality: 'medium' }),
-  playmaker: getCloudinaryUrl(MENU_IMAGES.cocktails.playmaker, { ...IMAGE_DIMENSIONS.menu, quality: 'medium' }),
-  victoryLap: getCloudinaryUrl(MENU_IMAGES.cocktails.victoryLap, { ...IMAGE_DIMENSIONS.menu, quality: 'medium' }),
-  pretzelBoard: getCloudinaryUrl(MENU_IMAGES.shareables.pretzelBoard, { ...IMAGE_DIMENSIONS.menu, quality: 'medium' }),
-  slidersTrio: getCloudinaryUrl(MENU_IMAGES.shareables.slidersTrio, { ...IMAGE_DIMENSIONS.menu, quality: 'medium' }),
-  charcuterie: getCloudinaryUrl(MENU_IMAGES.shareables.charcuterie, { ...IMAGE_DIMENSIONS.menu, quality: 'medium' }),
-  flatbreadFlight: getCloudinaryUrl(MENU_IMAGES.shareables.flatbreadFlight, { ...IMAGE_DIMENSIONS.menu, quality: 'medium' }),
+  wings: getCloudinaryUrl(MENU_IMAGES.starters.gametimeWings, { ...IMAGE_DIMENSIONS.menuItem, quality: 'medium' }),
+  nachos: getCloudinaryUrl(MENU_IMAGES.starters.loadedNachos, { ...IMAGE_DIMENSIONS.menuItem, quality: 'medium' }),
+  calamari: getCloudinaryUrl(MENU_IMAGES.starters.crispyCalamari, { ...IMAGE_DIMENSIONS.menuItem, quality: 'medium' }),
+  cornDip: getCloudinaryUrl(MENU_IMAGES.starters.streetCornDip, { ...IMAGE_DIMENSIONS.menuItem, quality: 'medium' }),
+  blitzBurger: getCloudinaryUrl(MENU_IMAGES.burgers.blitzBurger, { ...IMAGE_DIMENSIONS.menuItem, quality: 'medium' }),
+  crimsonCowboy: getCloudinaryUrl(MENU_IMAGES.burgers.crimsonCowboy, { ...IMAGE_DIMENSIONS.menuItem, quality: 'medium' }),
+  blackBlue: getCloudinaryUrl(MENU_IMAGES.burgers.blackAndBlue, { ...IMAGE_DIMENSIONS.menuItem, quality: 'medium' }),
+  mushroomRanch: getCloudinaryUrl(MENU_IMAGES.burgers.mushroomRanchStack, { ...IMAGE_DIMENSIONS.menuItem, quality: 'medium' }),
+  oldFashioned: getCloudinaryUrl(MENU_IMAGES.cocktails.overtimeOldFashioned, { ...IMAGE_DIMENSIONS.menuItem, quality: 'medium' }),
+  crimsonMule: getCloudinaryUrl(MENU_IMAGES.cocktails.crimsonMule, { ...IMAGE_DIMENSIONS.menuItem, quality: 'medium' }),
+  playmaker: getCloudinaryUrl(MENU_IMAGES.cocktails.thePlaymaker, { ...IMAGE_DIMENSIONS.menuItem, quality: 'medium' }),
+  victoryLap: getCloudinaryUrl(MENU_IMAGES.cocktails.victoryLap, { ...IMAGE_DIMENSIONS.menuItem, quality: 'medium' }),
+  pretzelBoard: getCloudinaryUrl(MENU_IMAGES.shareables.pretzelBoard, { ...IMAGE_DIMENSIONS.menuItem, quality: 'medium' }),
+  slidersTrio: getCloudinaryUrl(MENU_IMAGES.shareables.slidersTrio, { ...IMAGE_DIMENSIONS.menuItem, quality: 'medium' }),
+  charcuterie: getCloudinaryUrl(MENU_IMAGES.shareables.charcuterieAndCraft, { ...IMAGE_DIMENSIONS.menuItem, quality: 'medium' }),
+  flatbreadFlight: getCloudinaryUrl(MENU_IMAGES.shareables.flatbreadFlight, { ...IMAGE_DIMENSIONS.menuItem, quality: 'medium' }),
 });
 
 const MENU: MenuCategory[] = [
@@ -89,15 +88,8 @@ const MENU: MenuCategory[] = [
 
 function MenuCard({ item }: { item: MenuItem }) {
   const [isHovered, setIsHovered] = useState(false);
-
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-  };
-
+  const handleMouseEnter = () => { setIsHovered(true); };
+  const handleMouseLeave = () => { setIsHovered(false); };
   return (
     <div
       className="menu-card"
@@ -105,7 +97,6 @@ function MenuCard({ item }: { item: MenuItem }) {
       onMouseLeave={handleMouseLeave}
       style={{ position: 'relative', minHeight: 160, overflow: 'hidden', borderRadius: 8 }}
     >
-      {/* Image Container */}
       {item.image && (
         <>
           <Image
@@ -116,7 +107,6 @@ function MenuCard({ item }: { item: MenuItem }) {
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             unoptimized
           />
-          {/* Hover Overlay */}
           <div
             style={{
               position: 'absolute',
@@ -130,8 +120,6 @@ function MenuCard({ item }: { item: MenuItem }) {
           />
         </>
       )}
-
-      {/* Content Box - Only show on non-image or as fallback */}
       {!item.image && (
         <div
           style={{
@@ -145,7 +133,6 @@ function MenuCard({ item }: { item: MenuItem }) {
           }}
         />
       )}
-
       <div className="menu-card-content" style={{ position: 'relative', zIndex: 2 }}>
         {item.tag && (
           <span
@@ -202,8 +189,6 @@ function MenuCard({ item }: { item: MenuItem }) {
           {item.description}
         </p>
       </div>
-
-      {/* Hover state overlay text */}
       {isHovered && (
         <div
           style={{
@@ -233,7 +218,6 @@ export default function MenuSection() {
   const { isAfterHours } = useVibe();
   const [activeCategory, setActiveCategory] = useState('starters');
   const current = MENU.find((c) => c.id === activeCategory) || MENU[0];
-
   return (
     <section
       id="menu"
@@ -244,7 +228,6 @@ export default function MenuSection() {
       }}
     >
       <div style={{ maxWidth: 1200, margin: '0 auto' }}>
-        {/* Header */}
         <div style={{ marginBottom: 56, display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: 24 }}>
           <div>
             <p className="quarter-label">4th Quarter</p>
@@ -270,8 +253,6 @@ export default function MenuSection() {
             Full Menu PDF
           </a>
         </div>
-
-        {/* Category tabs */}
         <div
           style={{
             display: 'flex',
@@ -306,8 +287,6 @@ export default function MenuSection() {
             </button>
           ))}
         </div>
-
-        {/* Menu grid */}
         <div
           style={{
             display: 'grid',
@@ -319,8 +298,6 @@ export default function MenuSection() {
             <MenuCard key={item.name} item={item} />
           ))}
         </div>
-
-        {/* Bottom CTA */}
         <div style={{ textAlign: 'center', marginTop: 56 }}>
           <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '0.8rem', color: 'rgba(255,255,255,0.35)', marginBottom: 20, letterSpacing: '0.15em', textTransform: 'uppercase' }}>
             Consuming raw or undercooked meats may increase your risk of foodborne illness.
