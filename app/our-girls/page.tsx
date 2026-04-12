@@ -16,9 +16,9 @@ interface Bartender {
 }
 
 const getBartenderImages = () => ({
-  sarah: getCloudinaryUrl(BARTENDER_IMAGES.sarah, { ...IMAGE_DIMENSIONS.profile, quality: 'high', gravity: 'face' }),
-  jessica: getCloudinaryUrl(BARTENDER_IMAGES.jessica, { ...IMAGE_DIMENSIONS.profile, quality: 'high', gravity: 'face' }),
-  amanda: getCloudinaryUrl(BARTENDER_IMAGES.amanda, { ...IMAGE_DIMENSIONS.profile, quality: 'high', gravity: 'face' }),
+  sarah: getCloudinaryUrl(BARTENDER_IMAGES.sarah, { ...IMAGE_DIMENSIONS.bartender, quality: 'high', gravity: 'face' }),
+  jessica: getCloudinaryUrl(BARTENDER_IMAGES.jessica, { ...IMAGE_DIMENSIONS.bartender, quality: 'high', gravity: 'face' }),
+  amanda: getCloudinaryUrl(BARTENDER_IMAGES.amanda, { ...IMAGE_DIMENSIONS.bartender, quality: 'high', gravity: 'face' }),
 });
 
 const bartenders: Bartender[] = [
